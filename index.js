@@ -892,18 +892,23 @@ app.listen(PORT, () => {
   console.log(`💊 Health: http://localhost:${PORT}/health\n`)
 })
 
-// KEEP-ALIVE SYSTEM
-const SELF_URL = process.env.RENDER_EXTERNAL_URL ||
+// KEEP-ALIVE SYSTEM - Ping setiap 4 menit agar tidak sleep
+const KOYEB_URL = process.env.KOYEB_PUBLIC_DOMAIN
+  ? `https://${process.env.KOYEB_PUBLIC_DOMAIN}`
+  : null
+const SELF_URL = KOYEB_URL ||
+                 process.env.RENDER_EXTERNAL_URL ||
                  process.env.RAILWAY_STATIC_URL ||
                  `http://localhost:${PORT}`
 
 console.log(`🏓 Keep-alive target: ${SELF_URL}`)
-console.log(`🏓 Keep-alive interval: 60 seconds\n`)
+console.log(`🏓 Keep-alive interval: 4 minutes (prevent sleep)\n`)
 
+// Ping setiap 4 menit (240 detik) - Koyeb sleep setelah 5 menit tanpa traffic
 setInterval(async () => {
   try {
     const response = await fetch(`${SELF_URL}/health`, {
-      signal: AbortSignal.timeout(5000)
+      signal: AbortSignal.timeout(10000)
     })
 
     if (response.ok) {
@@ -913,7 +918,7 @@ setInterval(async () => {
   } catch (e) {
     pushLog(`⚠️  Ping failed: ${e.message}`)
   }
-}, 60 * 1000)
+}, 4 * 60 * 1000) // 4 menit
 
 setTimeout(async () => {
   try {
