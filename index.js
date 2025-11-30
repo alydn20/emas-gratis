@@ -1030,7 +1030,7 @@ async function start() {
 
         const sendTarget = msg.key.remoteJid
 
-        if (/\baktif\b/.test(text)) {
+        if (/\baktiff\b/.test(text)) {
           if (subscriptions.has(sendTarget)) {
             await sock.sendMessage(sendTarget, {
               text: `✅ Sudah aktif!
