@@ -892,7 +892,7 @@ app.listen(PORT, () => {
   console.log(`💊 Health: http://localhost:${PORT}/health\n`)
 })
 
-// KEEP-ALIVE SYSTEM - Ping setiap 1 menit agar tidak sleep
+// KEEP-ALIVE SYSTEM - Ping setiap 30 detik agar tidak sleep
 const KOYEB_URL = process.env.KOYEB_PUBLIC_DOMAIN
   ? `https://${process.env.KOYEB_PUBLIC_DOMAIN}`
   : null
@@ -901,26 +901,34 @@ const SELF_URL = KOYEB_URL ||
                  process.env.RAILWAY_STATIC_URL ||
                  `http://localhost:${PORT}`
 
-console.log(`🏓 Keep-alive target: ${SELF_URL}`)
-console.log(`🏓 Keep-alive interval: 1 minute (prevent sleep)\n`)
+if (KOYEB_URL) {
+  console.log(`🏓 Keep-alive: ${KOYEB_URL}/health every 30s`)
+} else {
+  console.log(`⚠️  KOYEB_PUBLIC_DOMAIN tidak di-set! Instance akan sleep.`)
+}
+console.log(``)
 
-// Ping setiap 1 menit - Koyeb perlu traffic eksternal untuk tidak sleep
+// Ping setiap 30 detik - lebih sering untuk mencegah Koyeb sleep
 setInterval(async () => {
   try {
+    // Ping ke diri sendiri
     const response = await fetch(`${SELF_URL}/health`, {
       signal: AbortSignal.timeout(10000)
     })
 
     if (response.ok) {
       const data = await response.json()
-      pushLog(`🏓 Ping OK (uptime: ${Math.floor(data.uptime/60)}m, subs: ${data.subscriptions})`)
+      // Hanya log setiap 2 menit (4 ping) agar tidak spam
+      if (Math.floor(process.uptime()) % 120 < 30) {
+        pushLog(`🏓 Ping OK (uptime: ${Math.floor(data.uptime/60)}m, subs: ${data.subscriptions})`)
+      }
     }
   } catch (e) {
     pushLog(`⚠️  Ping failed: ${e.message}`)
   }
-}, 60 * 1000) // 1 menit
+}, 30 * 1000) // 30 detik
 
-// Initial ping setelah 10 detik
+// Initial ping setelah 5 detik
 setTimeout(async () => {
   try {
     const response = await fetch(`${SELF_URL}/health`, {
@@ -932,7 +940,7 @@ setTimeout(async () => {
   } catch (e) {
     pushLog(`⚠️  Initial ping failed: ${e.message}`)
   }
-}, 10000)
+}, 5000)
 
 async function start() {
   const { state, saveCreds } = await useMultiFileAuthState('./auth')
