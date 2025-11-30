@@ -690,7 +690,7 @@ function formatMessage(treasuryData, usdIdrRate, xauUsdPrice = null, priceChange
 
 📲 Silakan hubungi: wa.me/${CONTACT_PREMIUM}
 ✨ Kelebihan Versi Premium:
-• ⚡ Update real-time (1 detik)
+• ⚡ Update real-time
 • 📊 Notifikasi NAIK/TURUN instan
 • 📅 Kalender ekonomi USD lengkap
 • ✅ Status NORMAL/TIDAK NORMAL
