@@ -695,6 +695,7 @@ function formatMessage(treasuryData, usdIdrRate, xauUsdPrice = null, priceChange
 • 📅 Kalender ekonomi USD lengkap
 • ✅ Status NORMAL/TIDAK NORMAL
 • 🎁 Perhitungan profit otomatis
+• 📉 Spread percentage
 • 🌐 Akses website: ts.muhamadaliyudin.xyz`
 }
 
