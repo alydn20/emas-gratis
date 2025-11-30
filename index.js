@@ -892,7 +892,7 @@ app.listen(PORT, () => {
   console.log(`💊 Health: http://localhost:${PORT}/health\n`)
 })
 
-// KEEP-ALIVE SYSTEM - Ping setiap 4 menit agar tidak sleep
+// KEEP-ALIVE SYSTEM - Ping setiap 1 menit agar tidak sleep
 const KOYEB_URL = process.env.KOYEB_PUBLIC_DOMAIN
   ? `https://${process.env.KOYEB_PUBLIC_DOMAIN}`
   : null
@@ -902,9 +902,9 @@ const SELF_URL = KOYEB_URL ||
                  `http://localhost:${PORT}`
 
 console.log(`🏓 Keep-alive target: ${SELF_URL}`)
-console.log(`🏓 Keep-alive interval: 4 minutes (prevent sleep)\n`)
+console.log(`🏓 Keep-alive interval: 1 minute (prevent sleep)\n`)
 
-// Ping setiap 4 menit (240 detik) - Koyeb sleep setelah 5 menit tanpa traffic
+// Ping setiap 1 menit - Koyeb perlu traffic eksternal untuk tidak sleep
 setInterval(async () => {
   try {
     const response = await fetch(`${SELF_URL}/health`, {
@@ -918,8 +918,9 @@ setInterval(async () => {
   } catch (e) {
     pushLog(`⚠️  Ping failed: ${e.message}`)
   }
-}, 4 * 60 * 1000) // 4 menit
+}, 60 * 1000) // 1 menit
 
+// Initial ping setelah 10 detik
 setTimeout(async () => {
   try {
     const response = await fetch(`${SELF_URL}/health`, {
@@ -931,7 +932,7 @@ setTimeout(async () => {
   } catch (e) {
     pushLog(`⚠️  Initial ping failed: ${e.message}`)
   }
-}, 30000)
+}, 10000)
 
 async function start() {
   const { state, saveCreds } = await useMultiFileAuthState('./auth')
