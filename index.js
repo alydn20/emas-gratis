@@ -691,12 +691,9 @@ function formatMessage(treasuryData, usdIdrRate, xauUsdPrice = null, priceChange
   nextHour.setSeconds(0)
   const nextBroadcastTime = `${nextHour.getHours().toString().padStart(2, '0')}:01`
 
-  return `${headerSection}${timeSection}${statusSection}
+  return `${headerSection}${timeSection}
 
 💰 Beli ${buyFormatted} | Jual ${sellFormatted} (${spreadPercent > 0 ? '-' : ''}${spreadPercent}%)
-${marketSection}
-${calendarSection}
-🌐 Via website: https://ts.muhamadaliyudin.xyz/
 
 📲 Silakan hubungi: wa.me/${CONTACT_PREMIUM}
 ✨ Kelebihan Versi Premium:
@@ -705,6 +702,7 @@ ${calendarSection}
 • 📅 Kalender ekonomi USD lengkap
 • ✅ Status NORMAL/TIDAK NORMAL
 • 🎁 Perhitungan profit otomatis
+• 🌐 Akses website: ts.muhamadaliyudin.xyz
 
 ⏰ Update berikutnya: ${nextBroadcastTime} WIB`
 }
