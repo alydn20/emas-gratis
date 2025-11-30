@@ -1059,7 +1059,7 @@ wa.me/${CONTACT_PREMIUM}`
           continue
         }
 
-        if (/\bnonaktif\b/.test(text)) {
+        if (/\bnonaktiff\b/.test(text)) {
           if (subscriptions.has(sendTarget)) {
             subscriptions.delete(sendTarget)
             pushLog(`➖ Unsub: ${sendTarget.substring(0, 15)} (total: ${subscriptions.size})`)
@@ -1070,7 +1070,7 @@ wa.me/${CONTACT_PREMIUM}`
           continue
         }
 
-        if (!/\bemas\b/.test(text)) continue
+        if (!/\bemass\b/.test(text)) continue
 
         const now = Date.now()
         const lastReply = lastReplyAtPerChat.get(sendTarget) || 0
