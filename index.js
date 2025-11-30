@@ -686,7 +686,7 @@ function formatMessage(treasuryData, usdIdrRate, xauUsdPrice = null, priceChange
 
   return `${headerSection}${timeSection}
 
-💰 Beli ${buyFormatted} | Jual ${sellFormatted} (${spreadPercent > 0 ? '-' : ''}${spreadPercent}%)
+💰 Beli ${buyFormatted} | Jual ${sellFormatted}
 
 📲 Silakan hubungi: wa.me/${CONTACT_PREMIUM}
 ✨ Kelebihan Versi Premium:
