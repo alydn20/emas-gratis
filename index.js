@@ -684,13 +684,6 @@ function formatMessage(treasuryData, usdIdrRate, xauUsdPrice = null, priceChange
 
   const formatGrams = (g) => g.toFixed(4)
 
-  // Hitung jam berikutnya untuk broadcast
-  const nextHour = new Date()
-  nextHour.setHours(nextHour.getHours() + 1)
-  nextHour.setMinutes(1)
-  nextHour.setSeconds(0)
-  const nextBroadcastTime = `${nextHour.getHours().toString().padStart(2, '0')}:01`
-
   return `${headerSection}${timeSection}
 
 💰 Beli ${buyFormatted} | Jual ${sellFormatted} (${spreadPercent > 0 ? '-' : ''}${spreadPercent}%)
@@ -702,9 +695,7 @@ function formatMessage(treasuryData, usdIdrRate, xauUsdPrice = null, priceChange
 • 📅 Kalender ekonomi USD lengkap
 • ✅ Status NORMAL/TIDAK NORMAL
 • 🎁 Perhitungan profit otomatis
-• 🌐 Akses website: ts.muhamadaliyudin.xyz
-
-⏰ Update berikutnya: ${nextBroadcastTime} WIB`
+• 🌐 Akses website: ts.muhamadaliyudin.xyz`
 }
 
 async function fetchTreasury() {
