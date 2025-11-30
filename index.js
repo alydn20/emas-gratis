@@ -24,7 +24,7 @@ const GLOBAL_THROTTLE = 3000
 const TYPING_DURATION = 2000
 
 // 🆓 BROADCAST COOLDOWN - 1 JAM untuk versi gratis (setiap jam xx:01)
-const PRICE_CHECK_INTERVAL = 60000 // Cek setiap 1 menit
+const PRICE_CHECK_INTERVAL = 1000 // 1 DETIK - sama seperti premium
 const MIN_PRICE_CHANGE = 1
 const BROADCAST_COOLDOWN = 3600000 // 1 JAM antar broadcast
 
@@ -829,10 +829,10 @@ async function checkPriceUpdate() {
 
 setInterval(checkPriceUpdate, PRICE_CHECK_INTERVAL)
 
-console.log(`🆓 VERSI GRATIS - Update setiap JAM (xx:01)`)
-console.log(`📲 Premium (real-time): wa.me/${CONTACT_PREMIUM}`)
+console.log(`🆓 VERSI GRATIS - Broadcast setiap JAM (xx:01)`)
+console.log(`📲 Premium: wa.me/${CONTACT_PREMIUM}`)
 console.log(``)
-console.log(`📊 Price check: every ${PRICE_CHECK_INTERVAL/1000}s`)
+console.log(`📊 Price check: every ${PRICE_CHECK_INTERVAL/1000}s (REAL-TIME!)`)
 console.log(`⏰ Broadcast: setiap jam xx:01 WIB`)
 console.log(`📅 Economic calendar: USD High-Impact\n`)
 
